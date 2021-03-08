@@ -49,6 +49,7 @@ const actions = {
         if (check) {
             commit("delUsers")
             commit("setAuth")
+            location.reload()
         }
     },
 }

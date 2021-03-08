@@ -50,7 +50,7 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
-    userInfo: JSON.parse(localStorage.getItem('persist-info')).user,
+    userInfo: JSON.parse(localStorage.getItem('persist-info')).User,
     userItems: [
       {id: '1', icon: 'mdi-home', title: 'Home', route: '/'},
       {id: '3', icon: 'mdi-history', title: 'History', route: '/history'},
@@ -69,7 +69,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['logout']),
+    ...mapActions(['logout', 'EMPTY_CART']),
     cekinfo() {
       console.log(this.userInfo)
     }

@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <v-main v-if="userInfo.users != null">
+    <v-main v-if="userInfo.User.users != null">
       <router-view></router-view>
     </v-main>
-    <v-main v-if="userInfo.users == null">
+    <v-main v-if="userInfo.User.users == null">
       <Auth/>
     </v-main>
   </v-app>
@@ -15,12 +15,12 @@ export default {
   name: 'App',
   data() {
     return {
-      userInfo: JSON.parse(localStorage.getItem('persist-info')).user,
+      userInfo: JSON.parse(localStorage.getItem('persist-info')),
     }
   },
   components: {
     Auth
-  }
+  },
 }
 </script>
 

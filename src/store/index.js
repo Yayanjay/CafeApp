@@ -10,7 +10,7 @@ Vue.use(Vuex);
 
 const userState = persistedState({
     key: 'persist-info',
-    paths: ['User.users', 'User.isAuth',]
+    paths: ['User.users', 'User.isAuth', 'Cart.carts']
 })
 
 export default new Vuex.Store({
