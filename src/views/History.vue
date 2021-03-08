@@ -1,11 +1,11 @@
 <template>
   <div class="history">
+    <Navbar/>
     <v-row>
       <v-col>
-        <Navbar />
         <v-container>
           History Page
-          <Table/>
+          <HistoryTable/>
         </v-container>
       </v-col>
     </v-row>
@@ -13,15 +13,16 @@
 </template>
 
 <script>
+import HistoryTable from '../components/HistoryTable'
 import Navbar from '../components/Navbar'
-import Table from '../components/table'
+
 
 export default {
   name: "History",
   components: {
-    Table,
     Navbar,
-    }
+    HistoryTable
+  }
 }
 </script>
 

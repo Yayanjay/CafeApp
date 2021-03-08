@@ -1,5 +1,6 @@
 <template>
   <div class="product">
+      <Navbar/>
       <v-row>
           <v-col color="purple">
             <v-container>
@@ -13,11 +14,13 @@
 
 <script>
 import ProductTable from '../components/ProductTable'
+import Navbar from '../components/Navbar'
 
 export default {
     name: 'Product',
     components: {
-        ProductTable
+        ProductTable,
+        Navbar
     }
 }
 </script>

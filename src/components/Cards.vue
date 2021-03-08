@@ -1,12 +1,15 @@
 <template>
   <div class="card d-flex flex-wrap justify-space-around justify-center" >
-      <v-card class="ma-3" v-for="product in products" :key="product.product_id">
+      <!-- <v-btn @click="test" x-small>
+          test button
+      </v-btn> -->  
+      <v-card class="ma-3" v-for="product in GET_PRODUCT" :key="product.product_id">
           <v-img :src="product.product_image" width="100%"></v-img>
           <v-card-title>
               {{ product.product_name }}
           </v-card-title>
           <v-card-subtitle>
-              {{ product.product_price }} <br>
+              Rp {{ product.product_price }}
           </v-card-subtitle>
           <v-card-action >
               <v-btn class="ma-3 mt-0" width="90%" color="#fce38a" @click="ADD_TO_CART(product)">Add to Cart</v-btn>
@@ -17,7 +20,6 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
-import Api from '../service/api'
 
 export default {
     name: "Card",
@@ -37,10 +39,7 @@ export default {
         ...mapGetters(["GET_PRODUCT", "GET_CART"])
     },
     mounted() {
-        this.FETCHING(),
-        Api().get('/product').then((res) => {
-            this.products = res.data.result
-        })
+        this.FETCHING()
     }
 }
 </script>

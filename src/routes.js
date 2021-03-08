@@ -4,6 +4,7 @@ import Home from './views/Home'
 import Product from './views/Product'
 import History from './views/History'
 import Account from './views/Account'
+import Auth from './views/Auth'
 
 
 Vue.use(VueRouter);
@@ -30,6 +31,11 @@ const mainRouter = new VueRouter({
             path: '/account',
             name: 'Account',
             component: Account
+        },
+        {
+            path: '/auth',
+            name: 'Auth',
+            component: Auth
         },
     ]
 })

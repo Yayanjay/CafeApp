@@ -1,22 +1,22 @@
 
 const state = {
-    cart : []
+    carts : []
 }
 const getters = {
     GET_CART: (state) => {
-        return state.cart
+        return state.carts
     },
     CALCULATE: (state) => {
         let price = 0
-        for (const key in state.cart) {
-            price = price + state.cart[key].product.price * state.cart[key].qty
+        for (const key in state.carts) {
+            price = price + state.carts[key].product.product_price * state.carts[key].qty
         }
         return price
     },
     QUANTITY: (state) => {
         let qty = 0 
-        for (const key in state.cart) {
-            qty = qty + state.cart[key].qty
+        for (const key in state.carts) {
+            qty = qty + state.carts[key].qty
         }
         return qty
     }
@@ -42,30 +42,31 @@ const actions = {
 const mutations = {
 
     ADD_ITEM_TO_CART(state, item) {
-      const productInCart = state.cart.find(data => data.product_id === item.product_id)
+      const productInCart = state.carts.find(data => data.product_id === item.product_id)
       if (!productInCart) {
-        state.cart.push({ ...item, qty: 1 });
+        state.carts.push({ ...item, qty: 1 });
       } else {
         productInCart.qty++;
       }
     },
     REMOVE_FROM_CART(state, id) {
-      state.cart = state.cart.filter((item) => item.product_id !== id);
+      state.carts = state.carts.filter((item) => item.product_id !== id);
     },
     ADD_QTY(state, id) {
-      const productInCart = state.cart.find((data) => data.product_id === id);
+      const productInCart = state.carts.find((data) => data.product_id === id);
       productInCart.qty++;
     },
     REDUCE_QTY(state, id) {
-      const productInCart = state.cart.find((data) => data.product_id === id);
+      const productInCart = state.carts.find((data) => data.product_id === id);
       if (productInCart.qty > 1) {
         productInCart.qty--;
       } else {
-        state.cart.splice(state.cart.indexOf(productInCart, 1));
+        state.carts.splice(state.carts.indexOf(productInCart, 1));
+        // state.carts[id].pop()
       }
     },
     EMPTY_CART(state) {
-      state.cart = []
+      state.carts = []
     }
     
 }
