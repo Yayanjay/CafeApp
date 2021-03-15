@@ -6,8 +6,6 @@
           <v-toolbar-title>Cafe App</v-toolbar-title>
         </div>
         <v-spacer></v-spacer>
-        <v-btn @click="cekinfo"></v-btn>
-        <v-spacer></v-spacer>
         <v-btn plain @click="logout">
           <v-label class="mr-2">Logout</v-label>
           <v-icon>mdi-logout</v-icon>

@@ -5,68 +5,73 @@
     sort-by="calories"
     class="elevation-1"
   >
-    <template v-slot:item.product_image="{ item }">
-        <div class="gambar my-3">
-            <v-img :src="item.product_image" :alt="item.product_name" width="20%" ></v-img>
-        </div>
+    <template v-slot:item.product_image="{item}">
+      <div class="pa-2">
+        <v-img :src="item.product_image" :alt="item.product_name" max-width="200px"></v-img>
+      </div>
     </template>
+
     <template v-slot:top>
       <v-toolbar flat>
-
-        <v-toolbar-title>Product List</v-toolbar-title>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        ></v-divider>
+        <v-toolbar-title>Menus</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-dialog
-          v-model="dialog"
-          max-width="500px"
-        >
-          <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="#5eaaa8"
+              color="primary"
               dark
               class="mb-2"
-              v-bind="attrs"
-              v-on="on"
+              @click.stop="dialog = true"
             >
               New Item
             </v-btn>
-          </template>
-          <v-card>
+            <v-btn
+              color="warning"
+              dark
+              class="mb-2 ml-2"
+              @click.stop="dialogEdit = true"
+            >
+              Edit Item
+            </v-btn>
+            <v-btn
+              color="error"
+              dark
+              class="mb-2 ml-2"
+              @click.stop="dialogDelete = true"
+            >
+              Delete Item
+            </v-btn>
+        <v-dialog v-model="dialog" max-width="500px">
+          <v-card class="addItem">
             <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
+              <span class="headline">Add Item</span>
             </v-card-title>
 
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="6" md="6">
+                  <v-col cols="12">
                     <v-text-field
-                      v-model="editedItem.name"
-                      label="Name"
+                      v-model="addItem.Name"
+                      label="Product Name"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="6">
+                  <v-col cols="12">
                     <v-text-field
-                      v-model="editedItem.price"
-                      label="Price"
+                      v-model="addItem.Price"
+                      label="Product Price"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="6">
+                  <v-col cols="12">
                     <v-file-input
                       small-chips
-                      v-model="editedItem.image"
-                      label="Input Image"
+                      v-model="addItem.Image"
+                      label="Product Image"
                     ></v-file-input>
                   </v-col>
-                  <v-col cols="12" sm="6" md="6">
+                  <v-col cols="12">
                     <v-select
                       :items="items"
-                      v-model="editedItem.category"
-                      label="Category"
+                      v-model="addItem.Category"
+                      label="Product Category"
                     ></v-select>
                   </v-col>
                 </v-row>
@@ -75,63 +80,134 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="close"
+              >
                 Cancel
               </v-btn>
-              <v-btn color="blue darken-1" text @click="save">
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="save(addItem)"
+              >
                 Save
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
 
+        <v-dialog v-model="dialogEdit" max-width="500px">
+          <v-card class="editItem">
+            <v-card-title>
+              <span class="headline">Edit Item</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editItem.Id"
+                      label="Product Id"
+                      placeholder="type the product id that you want to update"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editItem.Name"
+                      label="Product Name"
+                      placeholder="type the new product name "
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editItem.Price"
+                      label="Product Price"
+                      placeholder="type the new product price "
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-file-input
+                      small-chips
+                      v-model="editItem.Image"
+                      label="Product Image"
+                      placeholder="insert the new product image "
+                    ></v-file-input>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-select
+                      :items="items"
+                      v-model="editItem.Category"
+                      label="Product Category"
+                      placeholder="choose category"
+                    ></v-select>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="close"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="update(editItem)"
+              >
+                Update
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
+            <!-- <v-card-title class="headline">type the number that you want to delete</v-card-title> -->
+            <v-row>
+              <v-col cols="9" class="mx-auto" justify="center">
+                <v-text-field v-model="deleteItem.Id" label="type the number that you want to delete"></v-text-field>
+              </v-col>
+            </v-row>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="del(deleteItem.Id)">OK</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
-
       </v-toolbar>
     </template>
-
-    <template v-slot:item.actions="{ item }">
-      <v-btn small depressed color="#f5d782" class="mr-2">
-        <v-icon
-          small
-          @click="editItem(item)"
-        >
-          mdi-pencil
-        </v-icon>
-      </v-btn>
-      <v-btn small depressed color="#e97878" dark>
-        <v-icon
-          small
-          @click="deleteItem(item)"
-        >
-          mdi-delete
-        </v-icon>
-      </v-btn>
-    </template>
-
   </v-data-table>
 </template>
-
 <script>
-  import {mapGetters, mapActions} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
+import Axios from 'axios'
   export default {
     data: () => ({
+      // idprod: this.GET_PRODUCT.forEach((value) => {console.log(value.product_id)}),
+      CafeApp: JSON.parse(localStorage.getItem("persist-info")),
+      items: ['Food', 'Beverage'],
       dialog: false,
+      dialogEdit: false,
       dialogDelete: false,
       headers: [
         {
-          text: 'Image',
+          text: 'No. Id',
           align: 'start',
+          sortable: false,
+          value: 'product_id',
+        },
+        {
+          text: 'Image',
           sortable: false,
           value: 'product_image',
         },
@@ -139,28 +215,26 @@
         { text: 'Price', value: 'product_price' },
         { text: 'Category', value: 'product_category' },
         { text: 'Last Update', value: 'updatedAt' },
-        { text: 'Actions', value: 'actions', sortable: false },
       ],
-      editedIndex: -1,
-      editedItem: {
-        name: '',
-        price: 0,
-        image: null,
-        category: '',
+      addItem: {
+        Name: '',
+        Price: null,
+        Image: null,
+        Category: null,
       },
-      defaultItem: {
-        name: '',
-        price: 0,
-        image: null,
-        category: '',
+      editItem: {
+        Id: null,
+        Name: '',
+        Price: null,
+        Image: null,
+        Category: null,
       },
-      items: ["Food", "Beverage"]
+      deleteItem: {
+        Id: null,
+      },
     }),
 
     computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-      },
       ...mapGetters(["GET_PRODUCT"])
     },
 
@@ -174,25 +248,44 @@
     },
 
     created () {
-      this.initialize()
+      this.FETCHING()
     },
 
     methods: {
-      editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
+      ...mapActions(["FETCHING"]),
+
+      update(item) {
+      let formdata = new FormData()
+        formdata.append("id", item.Id)
+        formdata.append("name", item.Name)
+        formdata.append("price", item.Price)
+        formdata.append("category", item.Category)
+        formdata.append("image", item.Image)
+
+        Axios.put('http://localhost:3000/api/product', formdata,{
+          headers:{
+            "Content-Type" : "muitipart/form-data",
+            AuthKey: this.CafeApp.User.users.token
+          }
+        })
+          .then(() => {
+            alert('successfully edited')
+            location.reload()
+          }).catch((err) => {
+            console.log(err)
+          });
+        console.log(formdata)
       },
 
-      deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
-
-      deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
-        this.closeDelete()
+      del(id) {
+        Axios.delete(`http://localhost:3000/api/product/${id}`)
+          .then(() => {
+            confirm('are you sure?')
+            location.reload()
+          }).catch((err) => {
+            console.log(err)
+          });
+        console.log(id)
       },
 
       close () {
@@ -211,20 +304,29 @@
         })
       },
 
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
-        }
+      save (data) {
+        let formdata = new FormData()
+        formdata.append("name", data.Name)
+        formdata.append("price", data.Price)
+        formdata.append("category", data.Category)
+        formdata.append("image", data.Image)
+
+        Axios.post('http://localhost:3000/api/product', formdata,{
+          headers:{
+            "Content-Type" : "muitipart/form-data"
+          }
+        })
+          .then(() => {
+            alert('successfully uploaded')
+          }).catch((err) => {
+            console.log(err)
+          });
+        console.log(formdata)
         this.close()
       },
-
-      ...mapActions(["FETCHING"])
+      cek() {
+        console.log(this.CafeApp.User)
+      }
     },
-
-    mounted() {
-      this.FETCHING()
-    }
   }
 </script>

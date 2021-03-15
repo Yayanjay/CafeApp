@@ -97,7 +97,7 @@
           <v-btn
             color="green darken-1"
             text
-            @click="dialog = false && genReceipt() "
+            @click="dialog = false "
           >
             Disagree
           </v-btn>
@@ -105,7 +105,7 @@
           <v-btn
             color="green darken-1"
             text
-            @click="dialog = false"
+            @click="addHistory()"
           >
             Agree
           </v-btn>
@@ -135,9 +135,29 @@ export default {
   methods: {
     ...mapActions(["REMOVE_ITEM_FROM_CART", "ADD_QTY", "REDUCE_QTY", "EMPTY_CART"]),
     addHistory() {
-      Axios.post('http://localhost:3000/api/history', this.GET_CART)
+      let order = []
+
+      this.GET_CART.forEach((value) => {
+        order.push(value.product_name)
+      })
+
+      this.formHistory.invoices = "#" + Math.floor(Math.random()*900) + 100;
+      this.formHistory.cashier = "Zayyan"
+      this.formHistory.orders = order.join(', ').toString()
+      this.formHistory.amount = this.calculated + (this.calculated * (10/100))
+
+      let historyData = {
+        invoices : this.formHistory.invoices,
+        cashier : this.formHistory.cashier,
+        orders : this.formHistory.orders,
+        amount : this.formHistory.amount,
+      }
+      console.log(historyData)
+      Axios.post('http://localhost:3000/api/history', historyData)
         .then(() => {
           alert('Successfully Ordered')
+          this.$store.state.carts = []
+          location.reload()
         }).catch((err) => {
           console.log(err)
         });

@@ -147,7 +147,6 @@ export default {
         password : form.password,
         role : form.role,
       }
-      console.log(data)
       Axios({
         method: "POST",
         url:"http://localhost:3000/api/user", data,
@@ -155,8 +154,9 @@ export default {
           "Content-type" : "application/json"
         }
       })
-      .then(() => {
+      .then((res) => {
         alert("Succesfully Registered, Please Login")
+        console.log(res)
       }).catch((err) => {
         console.log(err)
       });

@@ -1,89 +1,48 @@
 <template>
-  <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">
-            Name
-          </th>
-          <th class="text-left">
-            Calories
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="item in GET_PRODUCT"
-          :key="item.name"
-        >
-          <td>{{ item.name }}</td>
-          <td>{{ item.calories }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+ <div>
+    <v-data-table
+      :headers="headers"
+      :items="history"
+      :items-per-page="5"
+      class="elevation-1"
+    ></v-data-table>
+ </div>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import Axios from 'axios'
   export default {
     data () {
       return {
-        desserts: [
+        headers: [
           {
-            name: 'Frozen Yogurt',
-            calories: 159,
+            text: 'Invoice',
+            align: 'start',
+            sortable: false,
+            value: 'invoices',
           },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-          },
+          { text: 'Cashier', value: 'cashier' },
+          { text: 'Orders', value: 'orders' },
+          { text: 'Amount', value: 'amount' },
+          { text: 'Created at', value: 'createdAt' },
         ],
+        history : []
       }
     },
     methods: {
-      ...mapGetters(["GET_PRODUCT"])
-    },
-    computed: {
-      ...mapActions(["FETCHING"])
+      fetch() {
+        Axios.get('http://localhost:3000/api/history')
+          .then((res) => {
+            console.log(res.data.result)
+            this.history = res.data.result
+            console.log(this.history)
+          }).catch((err) => {
+            console.log(err)
+          });
+      }
     },
     mounted() {
-      this.FETCHING()
+      this.fetch()
     }
   }
 </script>
-<style>
-
-</style>
