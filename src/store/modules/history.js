@@ -26,6 +26,7 @@ const mutations = {
     SET_HISTORY(state, history) {
         state.history = history
     },
+    
 }
 
 export default {

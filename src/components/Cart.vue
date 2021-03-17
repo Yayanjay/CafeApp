@@ -156,7 +156,7 @@ export default {
       Axios.post('http://localhost:3000/api/history', historyData)
         .then(() => {
           alert('Successfully Ordered')
-          this.$store.state.carts = []
+          this.EMPTY_CART
           location.reload()
         }).catch((err) => {
           console.log(err)

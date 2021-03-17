@@ -28,11 +28,6 @@ const mainRouter = new VueRouter({
             component: History
         },
         {
-            path: '/account',
-            name: 'Account',
-            component: Account
-        },
-        {
             path: '/auth',
             name: 'Auth',
             component: Auth
