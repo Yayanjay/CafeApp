@@ -3,7 +3,6 @@ import VueRouter from 'vue-router';
 import Home from './views/Home'
 import Product from './views/Product'
 import History from './views/History'
-import Account from './views/Account'
 import Auth from './views/Auth'
 
 

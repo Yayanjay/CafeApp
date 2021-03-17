@@ -11,11 +11,13 @@ const getters = {
 }
 const actions = {
     FETCHING({commit}) {
-        Axios
-            .get(`http://localhost:3000/api/product`)
+        Axios({
+            method: 'GET',
+            url: 'http://localhost:3000/api/product',
+        })
             .then((res) => {
                 commit("SET_PRODUCT", res.data.result)
-            }).catch((err) => {
+            }).catch((err) => { 
                 console.log(err)
             });
     },

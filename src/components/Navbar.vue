@@ -52,13 +52,11 @@ export default {
     userItems: [
       {id: '1', icon: 'mdi-home', title: 'Home', route: '/'},
       {id: '3', icon: 'mdi-history', title: 'History', route: '/history'},
-      {id: '4', icon: 'mdi-account', title: 'Account', route: '/account'},
     ],
     adminItems: [
       {id: '1', icon: 'mdi-home', title: 'Home', route: '/'},
       {id: '2', icon: 'mdi-silverware', title: 'Product', route: '/product'},
       {id: '3', icon: 'mdi-history', title: 'History', route: '/history'},
-      {id: '4', icon: 'mdi-account', title: 'Account', route: '/account'},
     ],
   }),
   watch: {
