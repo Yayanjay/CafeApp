@@ -14,6 +14,7 @@ const actions = {
         Axios({
             method: 'GET',
             url: 'http://localhost:3000/api/product',
+            // url: process.env.VUE_APP_URL + '/product',
         })
             .then((res) => {
                 commit("SET_PRODUCT", res.data.result)

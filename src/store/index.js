@@ -8,9 +8,13 @@ import User from './modules/user';
 
 Vue.use(Vuex);
 
-const userState = persistedState({
-    key: 'persist-info',
-    paths: ['User.users', 'User.isAuth', 'Cart.carts']
+const cartstate = persistedState({
+    key: 'cart',
+    paths: ['Cart.carts']
+})
+const userstate = persistedState({
+    key: 'user',
+    paths: ['User.userData', 'User.isAuth']
 })
 
 export default new Vuex.Store({
@@ -19,5 +23,5 @@ export default new Vuex.Store({
         Product,
         User
     },
-    plugins: [userState]
+    plugins: [cartstate, userstate]
 })

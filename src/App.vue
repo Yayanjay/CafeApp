@@ -1,25 +1,18 @@
 <template>
   <v-app>
-    <v-main v-if="userInfo.User.users != null">
+    <v-main>
       <router-view></router-view>
-    </v-main>
-    <v-main v-if="userInfo.User.users == null">
-      <Auth/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Auth from './views/Auth';
 export default {
   name: 'App',
   data() {
     return {
       userInfo: JSON.parse(localStorage.getItem('persist-info')),
     }
-  },
-  components: {
-    Auth
   },
 }
 </script>

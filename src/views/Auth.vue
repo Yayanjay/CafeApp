@@ -34,6 +34,7 @@
                       </v-card-text>
                       <div class="text-center mb-5">
                         <v-btn rounded color="teal accent-3" dark @click="submitLogin(loginData)">SIGN IN</v-btn>
+                        <v-btn color="red" @click="tes">tes</v-btn>
                       </div>
                     </v-col>
                     <v-col cols="12" md="4" class="teal accent-3">
@@ -186,9 +187,9 @@ export default {
         console.log(err)
       });
     },
-    buttontest() {
-      console.log(this.registData)
-    },
+    tes() {
+      console.log(JSON.parse(localStorage.user).User.isAuth)
+    }
   }
 };
 </script>

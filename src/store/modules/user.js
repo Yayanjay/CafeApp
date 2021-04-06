@@ -1,7 +1,7 @@
 import Axios from "axios"
 
 const state = {
-    users: null,
+    userData: null,
     isAuth: false,
 }
 
@@ -49,20 +49,22 @@ const actions = {
         if (check) {
             commit("delUsers")
             commit("setAuth")
+            localStorage.removeItem('cart')
             location.reload()
+            this.$router.push({ path: "/auth"})
         }
     },
 }
 
 const mutations = {
     setUsers(state, user) {
-        state.users = user
+        state.userData = user
     },
     setAuth(state) {
         state.isAuth = !state.isAuth
     },
     delUsers(state) {
-        state.users = null
+        state.userData = null
     },
 }
 
