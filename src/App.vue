@@ -8,6 +8,8 @@
 
 <script>
 export default {
-  
+  mounted() {
+    localStorage.setItem('user', null)
+  }
 }
 </script>
