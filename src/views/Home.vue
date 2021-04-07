@@ -42,11 +42,6 @@ export default {
         isAuth : JSON.parse(localStorage.getItem('user')).User.isAuth
       }
     },
-    mounted() {
-      if (this.user === null) {
-        this.$router.push({ path: "/auth"}).catch((err) => {err})
-      }
-    }
 
 }
 </script>
