@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div class="Home" v-if="isAuth == true">
+    <div class="Home" v-if="user">
       <Navbar/>
       <v-row >
           <v-col class="pr-1" cols="9">
@@ -39,7 +39,7 @@ export default {
     },
     data() {
       return {
-        isAuth : JSON.parse(localStorage.getItem('user')).User.isAuth
+        user : JSON.parse(localStorage.getItem('user'))
       }
     },
 

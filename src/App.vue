@@ -8,18 +8,6 @@
 
 <script>
 export default {
-  name: 'App',
-  data() {
-    return {
-    }
-  },
-  mounted() {
-    localStorage.setItem("user", null),
-    localStorage.setItem("cart", null)
-  }
+  
 }
 </script>
-
-<style lang="scss">
-
-</style>
