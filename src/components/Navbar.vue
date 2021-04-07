@@ -48,7 +48,7 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
-    role: JSON.parse(localStorage.getItem('user')).role,
+    role: JSON.parse(localStorage.getItem('user')).User.userData.role,
     userItems: [
       {id: '1', icon: 'mdi-home', title: 'Home', route: '/'},
       {id: '3', icon: 'mdi-history', title: 'History', route: '/history'},
