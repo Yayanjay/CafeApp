@@ -11,9 +11,12 @@ export default {
   name: 'App',
   data() {
     return {
-      userInfo: JSON.parse(localStorage.getItem('persist-info')),
     }
   },
+  mounted() {
+    localStorage.setItem("user", null),
+    localStorage.setItem("cart", null)
+  }
 }
 </script>
 
